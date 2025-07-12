@@ -16,8 +16,31 @@
       "dest": "src/server.js"
     },
     {
+      "src": "/uploads/(.*)",
+      "dest": "public/uploads/$1"
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "public/img/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "public/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "public/js/$1"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "public/admin/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "src/server.js"
     }
   ]
 } 
