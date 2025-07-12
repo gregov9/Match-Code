@@ -10,6 +10,7 @@ const questionRoutes = require('./routes/questionRoutes');
 const sessionRoutes = require('./routes/sessionRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const configRoutes = require('./routes/configRoutes');
+const errorHandler = require('./middleware/errorMiddleware');
 
 // Load environment variables
 dotenv.config();
@@ -17,54 +18,35 @@ dotenv.config();
 // Connect to database
 connectDB();
 
-// Initialize express app
+// Initialize express
 const app = express();
 
-// Middleware básico
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Static files - Servir archivos estáticos
+// Static files
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Middleware de logging
-app.use((req, res, next) => {
-    console.log(`${req.method} ${req.path}`);
-    next();
-});
-
-// API Routes
-app.use('/api/admin', adminRoutes);
+// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/challenges', challengeRoutes);
-app.use('/api/sessions', sessionRoutes);
 app.use('/api/questions', questionRoutes);
+app.use('/api/sessions', sessionRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/config', configRoutes);
 
-// API error handler
-app.use('/api', (err, req, res, next) => {
-    console.error('API Error:', err);
-    res.status(err.status || 500).json({
-        status: 'error',
-        message: err.message || 'Error interno del servidor'
-    });
-});
+// Error handling
+app.use(errorHandler);
 
-// API 404 handler - Para rutas API no encontradas
-app.use('/api/*', (req, res) => {
-    res.status(404).json({
-        status: 'error',
-        message: 'API endpoint no encontrado'
+// Handle production
+if (process.env.NODE_ENV === 'production') {
+    // Handle SPA routing
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
     });
-});
-
-// HTML5 History Mode - Para rutas que no son API
-app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(__dirname, '../public/index.html'));
-    }
-});
+}
 
 // Start server
 const PORT = process.env.PORT || 5000;

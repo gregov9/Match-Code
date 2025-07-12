@@ -213,7 +213,7 @@ exports.registerUser = async (req, res) => {
 // @desc    Login user
 // @route   POST /api/users/login
 // @access  Public
-exports.loginUser = async (req, res) => {
+exports.loginUser = async (req, res, next) => {
     try {
         const { login, password } = req.body; // login puede ser email o username
 
@@ -268,11 +268,7 @@ exports.loginUser = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Error en el login:', error);
-        res.status(500).json({
-            status: 'error',
-            message: error.message || 'Error al iniciar sesión'
-        });
+        next(error);
     }
 };
 
