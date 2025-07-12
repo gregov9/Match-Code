@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Desafío | Match Code</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/challenges.css">
+    <link rel="stylesheet" href="css/challenge-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="img/logo.png" alt="Match Code Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#features">Características</a></li>
+                <li><a href="challenges.html">Micro-Desafíos</a></li>
+                <li><a href="index.html#leaderboard">Líderes</a></li>
+                <li class="auth-links">
+                    <a href="#login" class="btn-login">Iniciar Sesión</a>
+                </li>
+                <li class="auth-links">
+                    <a href="#" onclick="openRegisterModal()" class="btn-signup">Registrarse</a>
+                </li>
+                <li class="user-profile" style="display: none;">
+                    <div class="dropdown">
+                        <a href="#" class="user-menu">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="user-name">Usuario</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="#profile">Mi Perfil</a>
+                            <a href="#sessions">Mis Sesiones</a>
+                            <a href="#" id="logout-btn">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="challenge-details-page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="challenges.html"><i class="fas fa-arrow-left"></i> Volver a Desafíos</a>
+                <span class="breadcrumb-separator">/</span>
+                <span id="challengeBreadcrumb">Detalles del desafío</span>
+            </div>
+            
+            <div class="challenge-details-container">
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                </div>
+                
+                <div class="challenge-details" id="challengeDetails" style="display: none;">
+                    <!-- Header con información básica -->
+                    <div class="challenge-details-header">
+                        <div class="challenge-meta-top">
+                            <div class="challenge-difficulty" id="challengeDifficulty"></div>
+                            <div class="challenge-points" id="challengePoints"></div>
+                            <div class="participant-badge" id="participantBadge"></div>
+                        </div>
+                        <h1 id="challengeTitle"></h1>
+                        <div class="challenge-creator">
+                            <span>Creado por: </span>
+                            <a href="#" id="creatorName"></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenido principal en dos columnas -->
+                    <div class="challenge-content-grid">
+                        <!-- Columna izquierda -->
+                        <div class="challenge-main-content">
+                            <!-- Descripción -->
+                            <div class="content-card challenge-description-container">
+                                <h2><i class="fas fa-info-circle"></i> Descripción</h2>
+                                <p id="challengeDescription"></p>
+                            </div>
+                            
+                            <!-- Habilidades requeridas -->
+                            <div class="content-card challenge-skills-container">
+                                <h2><i class="fas fa-code"></i> Habilidades requeridas</h2>
+                                <div class="challenge-skills" id="challengeSkills"></div>
+                            </div>
+                            
+                            <!-- Recursos -->
+                            <div class="content-card challenge-resources-container">
+                                <h2><i class="fas fa-book"></i> Recursos</h2>
+                                <div id="challengeResources">
+                                    <p class="no-resources">No hay recursos disponibles para este desafío.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Columna derecha -->
+                        <div class="challenge-sidebar">
+                            <!-- Tarjeta de estado -->
+                            <div class="content-card challenge-status-card">
+                                <h2>Estado del Desafío</h2>
+                                <div class="status-progress">
+                                    <div class="progress-label">
+                                        <span>Participantes</span>
+                                        <span><span id="currentParticipants">0</span>/<span id="maxParticipants">0</span></span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="participantsProgressFill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Información adicional -->
+                                <div class="challenge-info-list">
+                                    <div class="info-item">
+                                        <i class="fas fa-users"></i>
+                                        <div>
+                                            <h3>Tamaño de equipo</h3>
+                                            <p id="challengeTeamSize"></p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-clock"></i>
+                                        <div>
+                                            <h3>Duración</h3>
+                                            <p id="challengeDuration"></p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <div>
+                                            <h3>Fecha límite</h3>
+                                            <p id="challengeDeadline">No especificada</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Acciones -->
+                                <div class="challenge-actions-container">
+                                    <button class="btn btn-primary btn-block" id="participateBtn">Participar</button>
+                                    <button class="btn btn-secondary btn-block" id="submitSolutionBtn">Enviar solución</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Participantes destacados -->
+                            <div class="content-card featured-participants">
+                                <h2><i class="fas fa-user-friends"></i> Participantes</h2>
+                                <div class="featured-participants-list" id="featuredParticipantsList">
+                                    <p class="no-participants">Aún no hay participantes.</p>
+                                </div>
+                                <button class="btn btn-text" id="viewAllParticipantsBtn">
+                                    <i class="fas fa-users"></i> Ver todos los participantes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sección para participantes (modal) -->
+                <div class="modal" id="participantsModal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h2>Participantes</h2>
+                        <div class="participants-list" id="participantsList"></div>
+                    </div>
+                </div>
+                
+                <!-- Sección para envíos (modal) -->
+                <div class="modal" id="submissionsModal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h2>Mis envíos</h2>
+                        <div class="submissions-list" id="submissionsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MatchCode</h3>
+                    <p>Conectando desarrolladores a través de desafíos y mentoría.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="about.html">Acerca de</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="privacy.html">Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MatchCode. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer-logo">
+                <img src="img/logo.png" alt="Match Code Logo" class="footer-logo-img">
+                <p>Conectando estudiantes, resolviendo problemas juntos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
+            <p>¿No tienes cuenta? <a href="#" onclick="openRegisterModal()" id="showRegisterBtn">Regístrate</a></p>
+        </div>
+    </div>
+
+    <div class="modal" id="submitSolutionModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Enviar Solución</h2>
+            <form id="submitSolutionForm">
+                <div class="form-group">
+                    <label for="solutionUrl">URL de la solución (GitHub, CodePen, etc.)</label>
+                    <input type="url" id="solutionUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="solutionDescription">Descripción de la solución</label>
+                    <textarea id="solutionDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="teamMembers">Miembros del equipo (opcional)</label>
+                    <input type="text" id="teamMembers" placeholder="Correos electrónicos separados por comas">
+                </div>
+                <div class="form-group">
+                    <label for="languages">Lenguajes de programación</label>
+                    <input type="hidden" id="languages" name="languages">
+                    <div class="languages-container">
+                        <button type="button" class="language-btn" data-language="JavaScript">JavaScript</button>
+                        <button type="button" class="language-btn" data-language="Python">Python</button>
+                        <button type="button" class="language-btn" data-language="Java">Java</button>
+                        <button type="button" class="language-btn" data-language="C++">C++</button>
+                        <button type="button" class="language-btn" data-language="PHP">PHP</button>
+                        <button type="button" class="language-btn" data-language="Ruby">Ruby</button>
+                        <button type="button" class="language-btn" data-language="Swift">Swift</button>
+                        <button type="button" class="language-btn" data-language="Kotlin">Kotlin</button>
+                        <button type="button" class="language-btn" data-language="Go">Go</button>
+                        <button type="button" class="language-btn" data-language="Rust">Rust</button>
+                    </div>
+                    <small>Haz clic en los lenguajes que dominas</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Solución</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/challenge-details.js"></script>
+</body>
+</html>

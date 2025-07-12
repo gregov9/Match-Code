@@ -1,0 +1,5 @@
+{
+    "name": "Admin",
+    "email": "admin@example.com",
+    "password": "tu_contraseña_segura"
+}

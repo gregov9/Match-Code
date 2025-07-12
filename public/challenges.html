@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro-Desafíos | Match Code</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/challenges.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="img/logo.png" alt="Match Code Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#features">Características</a></li>
+                <li><a href="challenges.html" class="active">Micro-Desafíos</a></li>
+                <li><a href="index.html#leaderboard">Líderes</a></li>
+                <li class="auth-links">
+                    <a href="#login" class="btn-login">Iniciar Sesión</a>
+                </li>
+                <li class="auth-links">
+                    <a href="#" onclick="openRegisterModal()" class="btn-signup">Registrarse</a>
+                </li>
+                <li class="user-profile" style="display: none;">
+                    <div class="dropdown">
+                        <a href="#" class="user-menu">
+                            <img src="img/default-avatar.png" alt="Avatar" class="nav-avatar" id="nav-user-avatar">
+                            <span class="user-name">Usuario</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="openProfileModal(); return false;">Mi Perfil</a>
+                            <a href="#sessions">Mis Sesiones</a>
+                            <a href="#" id="logout-btn">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="challenges-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>Micro-Desafíos</h1>
+                <p>Resuelve problemas de programación en equipo y mejora tus habilidades técnicas</p>
+            </div>
+        </section>
+
+        <section class="challenges-filters">
+            <div class="container">
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <input type="text" id="challenge-search" placeholder="Buscar desafíos...">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="filter-group">
+                        <label for="difficulty-filter">Dificultad:</label>
+                        <select id="difficulty-filter">
+                            <option value="">Todas</option>
+                            <option value="Básico">Básico</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="skill-filter">Habilidad:</label>
+                        <select id="skill-filter">
+                            <option value="">Todas</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                            <option value="SQL">SQL</option>
+                            <option value="Algoritmos">Algoritmos</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sort-filter">Ordenar por:</label>
+                        <select id="sort-filter">
+                            <option value="newest">Más recientes</option>
+                            <option value="popular">Más populares</option>
+                            <option value="points">Más puntos</option>
+                        </select>
+                    </div>
+                    <button id="create-challenge-btn" class="btn btn-primary" onclick="openCreateChallengeModal()">
+                        <i class="fas fa-plus"></i> Crear Desafío
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="challenges-list">
+            <div class="container">
+                <div class="challenges-grid" id="challenges-container">
+                    <!-- Challenge cards will be loaded dynamically -->
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <div class="challenge-difficulty">Intermedio</div>
+                            <div class="challenge-points">150 pts</div>
+                        </div>
+                        <h3>Algoritmo de Grafos</h3>
+                        <p>Implementa un algoritmo de búsqueda en grafos para encontrar el camino más corto entre dos nodos.</p>
+                        <div class="challenge-skills">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Algoritmos</span>
+                            <span class="skill-tag">Estructuras de Datos</span>
+                        </div>
+                        <div class="challenge-meta">
+                            <span><i class="fas fa-users"></i> 3-4 personas</span>
+                            <span><i class="fas fa-clock"></i> 2 horas</span>
+                        </div>
+                        <div class="challenge-actions">
+                            <a href="challenge-details.html?id=1" class="btn btn-primary">Ver detalles</a>
+                            <button class="btn-icon btn-favorite"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <div class="challenge-difficulty">Básico</div>
+                            <div class="challenge-points">100 pts</div>
+                        </div>
+                        <h3>Optimización de Consultas SQL</h3>
+                        <p>Mejora el rendimiento de un conjunto de consultas SQL en una base de datos de ejemplo.</p>
+                        <div class="challenge-skills">
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Bases de Datos</span>
+                            <span class="skill-tag">Optimización</span>
+                        </div>
+                        <div class="challenge-meta">
+                            <span><i class="fas fa-users"></i> 2-3 personas</span>
+                            <span><i class="fas fa-clock"></i> 1 hora</span>
+                        </div>
+                        <div class="challenge-actions">
+                            <a href="challenge-details.html?id=2" class="btn btn-primary">Ver detalles</a>
+                            <button class="btn-icon btn-favorite"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <div class="challenge-difficulty">Avanzado</div>
+                            <div class="challenge-points">200 pts</div>
+                        </div>
+                        <h3>Desarrollo de API RESTful</h3>
+                        <p>Diseña e implementa una API RESTful para un sistema de gestión de tareas.</p>
+                        <div class="challenge-skills">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">MongoDB</span>
+                        </div>
+                        <div class="challenge-meta">
+                            <span><i class="fas fa-users"></i> 2-4 personas</span>
+                            <span><i class="fas fa-clock"></i> 3 horas</span>
+                        </div>
+                        <div class="challenge-actions">
+                            <a href="challenge-details.html?id=3" class="btn btn-primary">Ver detalles</a>
+                            <button class="btn-icon btn-favorite"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <div class="challenge-difficulty">Intermedio</div>
+                            <div class="challenge-points">150 pts</div>
+                        </div>
+                        <h3>Desarrollo Frontend con React</h3>
+                        <p>Crea una aplicación de lista de tareas con React utilizando hooks y context API.</p>
+                        <div class="challenge-skills">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">CSS</span>
+                        </div>
+                        <div class="challenge-meta">
+                            <span><i class="fas fa-users"></i> 2-3 personas</span>
+                            <span><i class="fas fa-clock"></i> 2 horas</span>
+                        </div>
+                        <div class="challenge-actions">
+                            <a href="challenge-details.html?id=4" class="btn btn-primary">Ver detalles</a>
+                            <button class="btn-icon btn-favorite"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <div class="challenge-difficulty">Avanzado</div>
+                            <div class="challenge-points">180 pts</div>
+                        </div>
+                        <h3>Machine Learning: Clasificación de Imágenes</h3>
+                        <p>Implementa un algoritmo de clasificación de imágenes utilizando TensorFlow o PyTorch.</p>
+                        <div class="challenge-skills">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">TensorFlow</span>
+                        </div>
+                        <div class="challenge-meta">
+                            <span><i class="fas fa-users"></i> 3-4 personas</span>
+                            <span><i class="fas fa-clock"></i> 4 horas</span>
+                        </div>
+                        <div class="challenge-actions">
+                            <a href="challenge-details.html?id=5" class="btn btn-primary">Ver detalles</a>
+                            <button class="btn-icon btn-favorite"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card">
+                        <div class="challenge-header">
+                            <div class="challenge-difficulty">Básico</div>
+                            <div class="challenge-points">80 pts</div>
+                        </div>
+                        <h3>Desarrollo de Interfaz Responsiva</h3>
+                        <p>Crea una interfaz de usuario responsiva utilizando HTML, CSS y JavaScript.</p>
+                        <div class="challenge-skills">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                        </div>
+                        <div class="challenge-meta">
+                            <span><i class="fas fa-users"></i> 1-2 personas</span>
+                            <span><i class="fas fa-clock"></i> 1 hora</span>
+                        </div>
+                        <div class="challenge-actions">
+                            <a href="challenge-details.html?id=6" class="btn btn-primary">Ver detalles</a>
+                            <button class="btn-icon btn-favorite"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button class="btn-page" disabled><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn-page active">1</button>
+                    <button class="btn-page">2</button>
+                    <button class="btn-page">3</button>
+                    <button class="btn-page"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mentor-actions" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Mis Desafíos</h2>
+                    <p>Gestiona los desafíos que has creado</p>
+                </div>
+                <div id="mentor-challenges" class="challenges-grid">
+                    <!-- Los desafíos del mentor se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para crear desafío -->
+        <div id="createChallengeModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Crear Nuevo Desafío</h2>
+                    <span class="close" onclick="closeCreateChallengeModal()">&times;</span>
+                </div>
+                <form id="createChallengeForm">
+                    <div class="form-group">
+                        <label for="challenge-title">Título del Desafío</label>
+                        <input type="text" id="challenge-title" name="title" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="challenge-description">Descripción</label>
+                        <textarea id="challenge-description" name="description" rows="4" required maxlength="1000"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="challenge-difficulty">Dificultad</label>
+                        <select id="challenge-difficulty" name="difficulty" required>
+                            <option value="">Seleccionar</option>
+                            <option value="Básico">Básico</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="challenge-points">Puntos</label>
+                        <input type="number" id="challenge-points" name="points" min="50" max="500" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Habilidades Requeridas</label>
+                        <div class="skills-container">
+                            <div class="skill-checkbox">
+                                <input type="checkbox" id="skill-js" name="skills" value="JavaScript">
+                                <label for="skill-js">JavaScript</label>
+                            </div>
+                            <div class="skill-checkbox">
+                                <input type="checkbox" id="skill-python" name="skills" value="Python">
+                                <label for="skill-python">Python</label>
+                            </div>
+                            <div class="skill-checkbox">
+                                <input type="checkbox" id="skill-java" name="skills" value="Java">
+                                <label for="skill-java">Java</label>
+                            </div>
+                            <div class="skill-checkbox">
+                                <input type="checkbox" id="skill-sql" name="skills" value="SQL">
+                                <label for="skill-sql">SQL</label>
+                            </div>
+                            <div class="skill-checkbox">
+                                <input type="checkbox" id="skill-algo" name="skills" value="Algoritmos">
+                                <label for="skill-algo">Algoritmos</label>
+                            </div>
+                            <div class="skill-checkbox">
+                                <input type="checkbox" id="skill-react" name="skills" value="React">
+                                <label for="skill-react">React</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="challenge-duration">Duración Estimada (horas)</label>
+                        <input type="number" id="challenge-duration" name="duration" min="1" max="8" step="0.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="challenge-team-max">Tamaño del Equipo</label>
+                        <select id="challenge-team-max" name="teamSize" required>
+                            <option value="">Seleccionar</option>
+                            <option value="2-3">2-3 personas</option>
+                            <option value="3-4">3-4 personas</option>
+                            <option value="4-5">4-5 personas</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeCreateChallengeModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear Desafío</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
+            <p class="form-footer">¿No tienes cuenta? <a href="#" onclick="openRegisterModal()" id="show-signup">Regístrate</a></p>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación para Participar -->
+    <div id="participate-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Confirmar Participación</h2>
+            <p>¿Estás seguro que deseas participar en este desafío?</p>
+            <div class="challenge-spots">
+                <p>Participantes: <span id="current-participants">0</span>/<span id="max-participants">4</span></p>
+                <div class="progress-bar">
+                    <div class="progress" id="participants-progress"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="confirm-participate" class="btn btn-primary">Confirmar</button>
+                <button id="cancel-participate" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Perfil de Usuario -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img id="profile-avatar-img" src="img/default-avatar.png" alt="Avatar">
+                    <button class="change-avatar-btn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <h2 id="profile-name">Nombre del Usuario</h2>
+                <span id="profile-role" class="role-badge">Rol</span>
+            </div>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    <span id="profile-points">0</span>
+                    <label>Puntos</label>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-tasks"></i>
+                    <span id="profile-challenges">0</span>
+                    <label>Desafíos</label>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span id="profile-teams">0</span>
+                    <label>Equipos</label>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="profile-email">Correo Electrónico</label>
+                        <input type="email" id="profile-email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-username">Nombre de Usuario</label>
+                        <input type="text" id="profile-username">
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-bio">Biografía</label>
+                        <textarea id="profile-bio" rows="3" placeholder="Cuéntanos sobre ti..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Habilidades</label>
+                        <div class="skills-container" id="profile-skills">
+                            <div class="skill-tag">JavaScript</div>
+                            <div class="skill-tag">Python</div>
+                            <div class="skill-tag">Java</div>
+                            <div class="skill-tag">SQL</div>
+                            <button type="button" class="add-skill-btn">
+                                <i class="fas fa-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeProfileModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-sections">
+                <div class="section-tabs">
+                    <button class="tab-btn active" data-tab="achievements">Logros</button>
+                    <button class="tab-btn" data-tab="history">Historial</button>
+                    <button class="tab-btn" data-tab="settings">Configuración</button>
+                </div>
+                
+                <div class="tab-content" id="achievements-tab">
+                    <div class="achievements-grid">
+                        <!-- Los logros se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="history-tab" style="display: none;">
+                    <div class="history-list">
+                        <!-- El historial se cargará dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="tab-content" id="settings-tab" style="display: none;">
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>Cambiar Contraseña</label>
+                            <input type="password" id="current-password" placeholder="Contraseña actual">
+                            <input type="password" id="new-password" placeholder="Nueva contraseña">
+                            <input type="password" id="confirm-password" placeholder="Confirmar contraseña">
+                            <button type="button" class="btn btn-secondary" onclick="changePassword()">
+                                Actualizar Contraseña
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label>Notificaciones</label>
+                            <div class="toggle-option">
+                                <span>Correos de actualización</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="email-notifications">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Notificaciones del navegador</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="browser-notifications">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="img/logo.png" alt="Match Code Logo" class="footer-logo-img">
+                <p>Conectando estudiantes, resolviendo problemas juntos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#features">Características</a></li>
+                    <li><a href="challenges.html">Micro-Desafíos</a></li>
+                    <li><a href="index.html#leaderboard">Líderes</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> info@matchcode.com</p>
+                <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MatchCode. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/challenges.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
+
