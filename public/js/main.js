@@ -211,16 +211,12 @@ async function loginUser(email, password) {
         });
         
         const data = await response.json();
-        console.log('Login response:', data); // Log para ver la respuesta completa
+        console.log('Login response:', data);
         
-        if (data.status === 'success') {
-            // Si está aprobado, proceder con el login
+        if (response.ok && data.status === 'success') {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.data.user));
             localStorage.setItem('userRole', data.data.user.role);
-            
-            // Log para verificar los datos del usuario
-            console.log('User data stored:', data.data.user);
             
             return { 
                 success: true, 
