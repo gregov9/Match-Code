@@ -316,31 +316,50 @@ ul {
     align-items: center;
     justify-content: space-between;
     padding: 8rem 2rem 5rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 80vh;
+    background: linear-gradient(135deg, #f6f9fc 0%, #e9f1f9 100%);
+    min-height: 85vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    pointer-events: none;
 }
 
 .hero-content {
     flex: 1;
     max-width: 600px;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    background: linear-gradient(135deg, var(--primary-color), #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
     color: var(--dark-color);
-    opacity: 0.8;
+    opacity: 0.9;
+    line-height: 1.6;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .hero-image {
@@ -348,11 +367,25 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    max-width: 55%;
 }
 
 .hero-image img {
     max-width: 100%;
-    height: auto;
+    height: 450px;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+}
+
+.hero-image img:hover {
+    transform: translateY(-8px);
 }
 
 /* Features Section */
@@ -1008,16 +1041,28 @@ footer {
 
     .hero {
         flex-direction: column;
+        padding: 6rem 1.5rem 3rem;
         text-align: center;
-        padding: 7rem 1rem 3rem;
     }
 
     .hero-content {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
 
     .hero-buttons {
         justify-content: center;
+    }
+
+    .hero-image {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .hero-image img {
+        height: 280px;
+        width: 100%;
+        object-fit: contain;
+        padding: 0.5rem;
     }
 
     .section-title {

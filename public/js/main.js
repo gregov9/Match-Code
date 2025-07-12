@@ -199,7 +199,7 @@ function showLoginMessage(message, type) {
 // Real API functions
 async function loginUser(email, password) {
     try {
-        const response = await fetch('/api/users/login', {
+        const response = await fetch('http://localhost:5000/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -211,12 +211,16 @@ async function loginUser(email, password) {
         });
         
         const data = await response.json();
-        console.log('Login response:', data);
+        console.log('Login response:', data); // Log para ver la respuesta completa
         
-        if (response.ok && data.status === 'success') {
+        if (data.status === 'success') {
+            // Si está aprobado, proceder con el login
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.data.user));
             localStorage.setItem('userRole', data.data.user.role);
+            
+            // Log para verificar los datos del usuario
+            console.log('User data stored:', data.data.user);
             
             return { 
                 success: true, 
@@ -284,15 +288,15 @@ async function fetchLeaderboard(type) {
             // Fallback to simulated data if API fails
             if (type === 'helpers') {
                 return [
-                    { position: 1, name: 'Carlos M.', avatar: '/img/default-avatar.png', sessions: 42, rating: 4.9 },
-                    { position: 2, name: 'Ana L.', avatar: '/img/default-avatar.png', sessions: 38, rating: 4.8 },
-                    { position: 3, name: 'Miguel R.', avatar: '/img/default-avatar.png', sessions: 35, rating: 4.7 }
+                    { position: 1, name: 'Carlos M.', avatar: 'img/avatar1.jpg', sessions: 42, rating: 4.9 },
+                    { position: 2, name: 'Ana L.', avatar: 'img/avatar2.jpg', sessions: 38, rating: 4.8 },
+                    { position: 3, name: 'Miguel R.', avatar: 'img/avatar3.jpg', sessions: 35, rating: 4.7 }
                 ];
             } else {
                 return [
-                    { position: 1, name: 'Laura P.', avatar: '/img/default-avatar.png', challenges: 15, points: 1250 },
-                    { position: 2, name: 'Daniel S.', avatar: '/img/default-avatar.png', challenges: 14, points: 1180 },
-                    { position: 3, name: 'Sofía T.', avatar: '/img/default-avatar.png', challenges: 12, points: 1050 }
+                    { position: 1, name: 'Laura P.', avatar: 'img/avatar4.jpg', challenges: 15, points: 1250 },
+                    { position: 2, name: 'Daniel S.', avatar: 'img/avatar5.jpg', challenges: 14, points: 1180 },
+                    { position: 3, name: 'Sofía T.', avatar: 'img/avatar6.jpg', challenges: 12, points: 1050 }
                 ];
             }
         }
@@ -650,7 +654,7 @@ if (registrationForm) {
 // Función para registrar usuario
 async function registerUser(userData) {
     try {
-        const response = await fetch('/api/users/register', {
+        const response = await fetch('http://localhost:5000/api/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

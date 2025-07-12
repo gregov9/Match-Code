@@ -1,5 +1,5 @@
 // Variables globales
-const API_URL = '/api';
+const API_URL = 'http://localhost:5000/api';
 
 // Inicializar la aplicación cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', () => {

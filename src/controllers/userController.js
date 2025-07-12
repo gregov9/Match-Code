@@ -215,9 +215,9 @@ exports.registerUser = async (req, res) => {
 // @access  Public
 exports.loginUser = async (req, res) => {
     try {
-        const { login, password } = req.body;
+        const { login, password } = req.body; // login puede ser email o username
 
-        // Validar campos requeridos
+        // Verificar si se proporcionó login y password
         if (!login || !password) {
             return res.status(400).json({
                 status: 'error',
@@ -225,7 +225,7 @@ exports.loginUser = async (req, res) => {
             });
         }
 
-        // Buscar usuario por email o username
+        // Buscar usuario por email o username y seleccionar explícitamente el password
         const user = await User.findOne({
             $or: [
                 { email: login.toLowerCase() },
@@ -233,42 +233,31 @@ exports.loginUser = async (req, res) => {
             ]
         }).select('+password');
 
-        // Verificar si el usuario existe
-        if (!user) {
+        // Verificar si el usuario existe y la contraseña es correcta
+        if (!user || !(await user.correctPassword(password, user.password))) {
             return res.status(401).json({
                 status: 'error',
-                message: 'Credenciales inválidas'
+                message: 'Usuario/email o contraseña incorrectos'
             });
         }
 
-        // Verificar contraseña
-        const isMatch = await user.matchPassword(password);
-        if (!isMatch) {
-            return res.status(401).json({
-                status: 'error',
-                message: 'Credenciales inválidas'
-            });
-        }
-
-        // Verificar estado de aprobación
+        // Verificar el estado de aprobación
         if (user.approvalStatus === 'pending') {
-            return res.status(403).json({
+            return res.status(401).json({
                 status: 'error',
-                message: 'Tu cuenta está pendiente de aprobación'
+                message: 'Tu cuenta está pendiente de aprobación. Te notificaremos cuando sea aprobada.'
             });
-        }
-
-        if (user.approvalStatus === 'rejected') {
-            return res.status(403).json({
+        } else if (user.approvalStatus === 'rejected') {
+            return res.status(401).json({
                 status: 'error',
-                message: 'Tu cuenta ha sido rechazada'
+                message: 'Tu solicitud de registro ha sido rechazada.'
             });
         }
 
         // Generar token
-        const token = user.getSignedJwtToken();
+        const token = signToken(user._id);
 
-        // Remover el campo password antes de enviar la respuesta
+        // Remover el password de la respuesta
         user.password = undefined;
 
         res.status(200).json({
@@ -279,10 +268,10 @@ exports.loginUser = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Login error:', error);
+        console.error('Error en el login:', error);
         res.status(500).json({
             status: 'error',
-            message: 'Error al procesar la solicitud'
+            message: error.message || 'Error al iniciar sesión'
         });
     }
 };
