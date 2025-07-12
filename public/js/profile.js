@@ -135,7 +135,7 @@ function updateProfileUI(userData) {
         // Actualizar avatar
         const avatarImg = document.getElementById('profile-avatar-img');
         if (avatarImg) {
-            avatarImg.src = userData.avatar || 'img/default-avatar.png';
+            avatarImg.src = userData.avatar || '/img/default-avatar.png';
         }
 
         // Actualizar estadísticas
